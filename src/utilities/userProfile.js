@@ -19,6 +19,7 @@ export const useProfile = () => {
         [user.uid]: {
           displayName: user.displayName,
           email: user.email,
+          events: {}
         },
       });
     }
