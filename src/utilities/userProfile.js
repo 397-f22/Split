@@ -13,7 +13,7 @@ export const useProfile = () => {
       user &&
       !error &&
       !isLoading &&
-      !Object.keys(users).includes(user.uid)
+      (!users || !Object.keys(users).includes(user.uid))
     ) {
       updateUser({
         [user.uid]: {

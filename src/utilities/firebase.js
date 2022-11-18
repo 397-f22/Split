@@ -23,21 +23,21 @@ const firebaseConfig = {
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
 
-if (import.meta.env.VITE_EMULATE){
-  firebaseConfig.databaseURL = "http://localhost:9000?ns=split-abdf6";
-}
+// if (import.meta.env.VITE_EMULATE){
+//   firebaseConfig.databaseURL = "http://localhost:9000?ns=split-abdf6";
+// }
 
-if (!window.EMULATION && import.meta.env.VITE_EMULATE) {
-  const authLocal = getAuth(firebase);
-  connectAuthEmulator(authLocal, "http://127.0.0.1:9099");
-  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+// if (!window.EMULATION && import.meta.env.VITE_EMULATE) {
+//   const authLocal = getAuth(firebase);
+//   connectAuthEmulator(authLocal, "http://127.0.0.1:9099");
+//   connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
-  signInWithCredential(authLocal, GoogleAuthProvider.credential(
-    '{"sub": "	gS3OezlcsXuydxbalssanZix3pu5", "email": "Tester@gmail.com", "displayName":"Tester", "email_verified": true}'
-  ));
-  
-  window.EMULATION = true;
-}
+//   signInWithCredential(authLocal, GoogleAuthProvider.credential(
+//     '{"sub": "	gS3OezlcsXuydxbalssanZix3pu5", "email": "Tester@gmail.com", "displayName":"Tester", "email_verified": true}'
+//   ));
+
+//   window.EMULATION = true;
+// }
 
 export const useDbData = (path) => {
   const [data, setData] = useState();
