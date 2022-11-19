@@ -1,0 +1,58 @@
+.modal-description {
+  font-size: 20px;
+  color: grey;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modal-organizer {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.modal-attendees {
+  margin-top: 5px;
+  padding-bottom: 15px;
+  border-bottom: 0.5px solid rgba(128, 128, 128, 0.5);
+}
+
+.modal-title {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.modal-badges-container {
+  text-align: center;
+}
+
+.modal-badges {
+  font-size: 15px;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+
+.modal-payments-container {
+  margin-top: 5px;
+}
+
+.modal-user-payment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+
+.modal-payment-badges-pending {
+  opacity: 0.8;
+}
+
+.modal-payments-pending {
+  display: block;
+  text-align: center;
+}
+
+.modal-payment-button {
+  font-size: 15px;
+  margin-top: 3px;
+}

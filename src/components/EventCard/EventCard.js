@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import EventModal from "../EventModal/EventModal";
 
-const EventCard = ({ event, users }) => {
+const EventCard = ({ event, eventId, users, currentUser }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -32,7 +32,9 @@ const EventCard = ({ event, users }) => {
         handleClose={handleClose}
         handleShow={handleShow}
         event={event}
+        eventId={eventId}
         users={users}
+        currentUser={currentUser}
       />
     </div>
   );

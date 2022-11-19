@@ -36,7 +36,7 @@ const Home = () => {
           <div className="home-add-event">
             <p className="home-add-event-title">Add new event</p>
             <Button variant="success">
-              <i class="bi bi-plus-circle"></i>
+              <i className="bi bi-plus-circle"></i>
             </Button>
           </div>
         </div>
@@ -44,7 +44,12 @@ const Home = () => {
           {currentUserEvents.map(([id, eventData]) => {
             return (
               <ListGroup.Item key={id}>
-                <EventCard event={eventData} users={users} />
+                <EventCard
+                  eventId={id}
+                  event={eventData}
+                  users={users}
+                  currentUser={currentUser}
+                />
               </ListGroup.Item>
             );
           })}
