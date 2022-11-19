@@ -21,6 +21,7 @@ const Home = () => {
   const currentUserInformation = Object.entries(users).filter(
     ([id, user]) => id === currentUser.uid
   )[0][1];
+
   const currentUserEventIds = Object.values(currentUserInformation.events);
 
   const currentUserEvents = Object.entries(events).filter(([id, event]) =>
@@ -40,10 +41,10 @@ const Home = () => {
             </Button>
           </div>
         </div>
-        <ListGroup variant="flush">
+        <ListGroup>
           {currentUserEvents.map(([id, eventData]) => {
             return (
-              <ListGroup.Item key={id}>
+              <ListGroup.Item className="mb-3 event-grid-container" key={id}>
                 <EventCard
                   eventId={id}
                   event={eventData}

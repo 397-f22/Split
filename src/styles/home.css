@@ -23,3 +23,7 @@
   display: block;
   text-align: center;
 }
+
+.event-grid-container {
+  border: none;
+}

@@ -10,6 +10,7 @@
 .navbar-title {
   color: white;
   font-weight: bold;
+  font-size: 35px;
 }
 
 .navbar-username {
@@ -24,12 +25,4 @@
 
 .navbar-signout-button {
   margin-left: 10px;
-  border: 2px solid white;
-  color: white;
-  background-color: #b19cd9;
-}
-
-.navbar-signout-button:hover {
-  color: black;
-  background-color: white;
 }

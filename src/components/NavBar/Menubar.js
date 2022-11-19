@@ -1,11 +1,15 @@
 import React from "react";
-import { Container, Navbar, Nav } from "react-bootstrap";
+import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import { signOut } from "../../utilities/firebase";
 
 const SignOutButton = () => (
-  <button className="ml-5 p-2 w-10 btn navbar-signout-button" onClick={signOut}>
+  <Button
+    className="ml-5 p-2 w-10 btn navbar-signout-button"
+    variant="light"
+    onClick={signOut}
+  >
     Sign out
-  </button>
+  </Button>
 );
 
 const Menubar = ({ user }) => {

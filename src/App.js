@@ -9,8 +9,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles/styles.css";
 import "./styles/home.css";
 import "./styles/navbar.css";
-import "./styles/userInterests.css";
-import "./styles/userCard.css";
+import "./styles/eventCard.css";
 import "./styles/eventModal.css";
 
 function App() {
