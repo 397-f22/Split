@@ -1,0 +1,25 @@
+.home-title {
+  font-size: 30px;
+  color: grey;
+}
+
+.home-header {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-add-event-title {
+  color: grey;
+  font-weight: bold;
+  margin-right: 10px;
+  opacity: 0.75;
+}
+
+.home-add-event {
+  display: block;
+  text-align: center;
+}
