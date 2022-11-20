@@ -40,6 +40,18 @@ const EventModal = ({
           <p className="modal-organizer">
             Organizer: {users[event.organizer].displayName}
           </p>
+          {event.organizer === currentUser.uid ?
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text id="basic-addon1"> Deadline </InputGroup.Text>
+                    <Form.Control
+                      aria-label="Deadline"
+                      onChange={(e) => {
+                        event.deadline = e.target.value;
+                        updateData({ ["/events/" + eventId + "/payments"]: event.deadline });
+                      }}
+                    />
+                  </InputGroup>
+                  : ""}
         </div>
         <div className="modal-attendees">
           <p className="modal-title">Attendees</p>
