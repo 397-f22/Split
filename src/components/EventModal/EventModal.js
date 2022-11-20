@@ -59,9 +59,7 @@ const EventModal = ({
                 {users[e.user].displayName}
                 <br />
                 <strong>Amount: </strong>
-                {console.log(e.organizer)}
-                {console.log(currentUser.uid)}
-                {e.organizer === currentUser.uid ? 
+                {event.organizer === currentUser.uid ?
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="basic-addon1"> $ </InputGroup.Text>
                     <Form.Control
@@ -69,11 +67,11 @@ const EventModal = ({
                       aria-label="Amount"
                     />
                   </InputGroup>
-                 : e.amount} 
+                  : e.amount}
 
 
 
-                
+
               </div>
               <div>
                 {e.isPaid ? (
