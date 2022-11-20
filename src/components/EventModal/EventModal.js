@@ -1,6 +1,7 @@
 import React from "react";
 import { Badge, Button, Modal } from "react-bootstrap";
 import { useDbUpdate } from "../../utilities/firebase";
+import { Form, InputGroup } from "react-bootstrap";
 
 const EventModal = ({
   show,
@@ -9,6 +10,7 @@ const EventModal = ({
   eventId,
   users,
   currentUser,
+
 }) => {
   const [updateData] = useDbUpdate("/");
 
@@ -56,7 +58,22 @@ const EventModal = ({
               <div>
                 {users[e.user].displayName}
                 <br />
-                <strong>Amount: </strong>${e.amount}
+                <strong>Amount: </strong>
+                {console.log(e.organizer)}
+                {console.log(currentUser.uid)}
+                {e.organizer === currentUser.uid ? 
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text id="basic-addon1"> $ </InputGroup.Text>
+                    <Form.Control
+                      placeholder={e.amount}
+                      aria-label="Amount"
+                    />
+                  </InputGroup>
+                 : e.amount} 
+
+
+
+                
               </div>
               <div>
                 {e.isPaid ? (

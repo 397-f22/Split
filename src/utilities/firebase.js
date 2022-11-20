@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+// eslint-disable-next-line
 import { getDatabase, onValue, ref, update, connectDatabaseEmulator } from "firebase/database";
 import {
   getAuth,
@@ -6,7 +7,9 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signOut,
+  // eslint-disable-next-line
   connectAuthEmulator,
+  // eslint-disable-next-line
   signInWithCredential
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
