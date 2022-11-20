@@ -22,7 +22,7 @@ const Home = () => {
     ([id, user]) => id === currentUser.uid
   )[0][1];
 
-  const currentUserEventIds = Object.values(currentUserInformation.events);
+  const currentUserEventIds = currentUserInformation.events ? Object.values(currentUserInformation.events) : [];
 
   const currentUserEvents = Object.entries(events).filter(([id, event]) =>
     currentUserEventIds.includes(id)
