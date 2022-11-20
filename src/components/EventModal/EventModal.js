@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Badge, Button, Modal } from "react-bootstrap";
 import { useDbUpdate } from "../../utilities/firebase";
 import { Form, InputGroup } from "react-bootstrap";
@@ -53,28 +53,32 @@ const EventModal = ({
         </div>
         <div className="modal-payments-container">
           <p className="modal-title">Payments</p>
-          {event.payments.map((e, i) => (
+          {event.payments.map((payment, i) => (
             <div key={i} className="modal-user-payment-container">
               <div>
-                {users[e.user].displayName}
+                {users[payment.user].displayName}
                 <br />
                 <strong>Amount: </strong>
                 {event.organizer === currentUser.uid ?
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="basic-addon1"> $ </InputGroup.Text>
                     <Form.Control
-                      placeholder={e.amount}
+                      placeholder={payment.amount}
                       aria-label="Amount"
+                      onChange={(e) => {
+                        event.payments[i].amount = e.target.value;
+                        updateData({ ["/events/" + eventId + "/payments"]: event.payments });
+                      }}
                     />
                   </InputGroup>
-                  : e.amount}
+                  : payment.amount}
 
 
 
 
               </div>
               <div>
-                {e.isPaid ? (
+                {payment.isPaid ? (
                   <Badge bg="success" className="modal-payment-badges">
                     Already made payment!
                   </Badge>
@@ -89,7 +93,7 @@ const EventModal = ({
                         Payment is pending!
                       </Badge>
                     </div>
-                    {e.user === currentUser.uid && (
+                    {payment.user === currentUser.uid && (
                       <div>
                         <Button
                           variant="danger"
