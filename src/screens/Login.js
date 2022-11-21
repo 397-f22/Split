@@ -1,16 +1,19 @@
 import React from "react";
 import { ListGroup, Button, Container, Row, Image } from "react-bootstrap";
+import { useLocation, Navigate } from "react-router-dom";
 import { signInWithGoogle } from "../utilities/firebase";
 import { useProfile } from "../utilities/userProfile";
 
 const Login = () => {
-    const [, error, isLoading] = useProfile();
+    const [user, error, isLoading] = useProfile();
+    const location = useLocation();
 
     if (error) return <h1>Error loading user: {`${error}`}</h1>;
     if (isLoading) return <h1>Loading user profile</h1>;
 
     return (
         <Container className="login-body" fluid="true">
+            {user && <Navigate to={"/" + (location.state ? location.state.inviteLink : "")} />}
             <ListGroup className="login-container m-2">
                 <ListGroup.Item className="login-card px-5 py-4">
                     <div className="login-title-div mt-4 mb-5 d-flex">

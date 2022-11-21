@@ -14,17 +14,22 @@ import "./styles/eventModal.css";
 
 function App() {
   const [user] = useProfile();
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
-            element={user ? <Home /> : <Navigate replace to="/login" />}
+            element={user ? <Home /> : <Navigate replace to="/login" state={{inviteLink: window.location.search}}/>}
+          />
+          <Route
+            path=':handle'
+            element={user ? <Home /> : <Navigate replace to="/login" state={{inviteLink: window.location.search}}/>}
           />
           <Route
             path="/login"
-            element={user ? <Navigate replace to="/" /> : <Login />}
+            element={ <Login />}
           />
         </Routes>
       </BrowserRouter>
