@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState} from "react";
 import { Badge, Button, Modal } from "react-bootstrap";
 import { useDbUpdate } from "../../utilities/firebase";
 import { Form, InputGroup } from "react-bootstrap";
@@ -63,9 +63,7 @@ const EventModal = ({
 
 }) => {
   const [updateData] = useDbUpdate("/");
-  console.log(event.deadline);
   const [state, change] = useFormData({ deadline: event.deadline });
-  console.log(state);
 
   const attendeesIds = Object.values(event.attendees);
   const attendees = Object.entries(users).filter(([id, user]) =>
@@ -82,6 +80,11 @@ const EventModal = ({
     updateData({ ["/events/" + eventId + "/payments"]: event.payments });
   };
 
+  const shareLink = () => {
+    var eventLink = window.location.href + "?invite=" + eventId;
+    navigator.clipboard.writeText(eventLink);
+  };
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -93,16 +96,23 @@ const EventModal = ({
           <p className="modal-organizer">
             Organizer: {users[event.organizer].displayName}
           </p>
-          {event.organizer === currentUser.uid ?
+          {event.organizer === currentUser.uid ? 
                   <InputDatetimeField name='deadline' text='Deadline' state={state} change={(e) => {
                     change(e);
-                    console.log(state);
+                    // console.log(state);
                     updateData({ ["/events/" + eventId + "/deadline"]: state.values.deadline });
                   }} />                                                                          
                   : ""}
         </div>
         <div className="modal-attendees">
-          <p className="modal-title">Attendees</p>
+          <div className="d-flex justify-content-between">
+            <p className="modal-title">Attendees <Badge bg="primary">{attendees.length}</Badge></p>
+            {event.organizer === currentUser.uid ? 
+              <Button variant="outline-dark" onClick={shareLink}>
+                <i className="bi bi-link-45deg" ></i>
+              </Button> 
+              : ""}
+          </div>
           <div className="modal-badges-container">
             {attendees.map(([id, user]) => (
               <Badge key={id} bg="info" className="modal-badges">
@@ -132,10 +142,6 @@ const EventModal = ({
                     />
                   </InputGroup>
                   : payment.amount}
-
-
-
-
               </div>
               <div>
                 {payment.isPaid ? (
@@ -144,7 +150,8 @@ const EventModal = ({
                   </Badge>
                 ) : (
                   <div className="modal-payments-pending">
-                    <div>
+                    {payment.user !== currentUser.uid &&
+                    (<div>
                       <Badge
                         bg="warning"
                         text="dark"
@@ -152,7 +159,7 @@ const EventModal = ({
                       >
                         Payment is pending!
                       </Badge>
-                    </div>
+                    </div>)}
                     {payment.user === currentUser.uid && (
                       <div>
                         <Button
@@ -173,6 +180,13 @@ const EventModal = ({
         </div>
       </Modal.Body>
       <Modal.Footer>
+        {event.organizer === currentUser.uid ? (
+          <Button variant="danger" onClick={handleClose}>
+            Delete event
+          </Button>
+        ) : (
+          ""
+        )}
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
