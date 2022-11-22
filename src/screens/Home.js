@@ -50,7 +50,7 @@ const Home = () => {
           <h1 className="home-title">My events</h1>
           <div className="home-add-event">
             <p className="home-add-event-title">Add new event</p>
-            <Button variant="success">
+            <Button variant="success" >
               <i className="bi bi-plus-circle"></i>
             </Button>
           </div>
