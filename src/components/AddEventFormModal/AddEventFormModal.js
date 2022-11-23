@@ -46,7 +46,7 @@ const InputDatetimeField = ({ name, state, change }) => {
 };
 
 const AddEventFormModal = ({ show, handleClose, currentUser }) => {
-  const [state, change] = useFormData({deadline: new Date()});
+  const [deadline, setDeadline] = useFormData({deadline: new Date()});
   const [description, setDescription] = useState("")
   const [updateData] = useDbUpdate("/");
   const handleSubmit = (e) => {
@@ -54,7 +54,7 @@ const AddEventFormModal = ({ show, handleClose, currentUser }) => {
     if (description.length > 0) {
       const data = {
         attendees: {},
-        deadline: "",
+        deadline: deadline ,
         description: description,
         organizer: currentUser.uid,
         payments: {},
@@ -74,12 +74,12 @@ const AddEventFormModal = ({ show, handleClose, currentUser }) => {
       <InputDatetimeField
         name="deadline"
         text="Deadline"
-        state={state}
-        // change={(e) => {
-        //   change(e);
-        //   // console.log(state);
-        //   updateData({ ["events/" +  + "/deadline"]: state.values.deadline });
-        // }}
+        state={deadline}
+        change={(e) => {
+          setDeadline(e);
+          console.log(deadline);
+          // updateData({ ["events/" +  + "/deadline"]: state.values.deadline });
+        }}
       />
       <FloatingLabel controlId="floatingTextarea2" label="Description">
         <Form.Control
