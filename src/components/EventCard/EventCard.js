@@ -40,10 +40,10 @@ const EventCard = ({ event, eventId, users, currentUser }) => {
         show={show}
         handleClose={handleClose}
         handleShow={handleShow}
+        currentUser={currentUser}
         event={event}
         eventId={eventId}
-        users={users}
-        currentUser={currentUser}
+        users={users}        
       />
     </div>
   );
