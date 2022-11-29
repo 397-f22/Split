@@ -53,7 +53,7 @@ const InviteModal = (props) => {
         const event = events[inviteID];
         if (!event) {
             return <div>Event not found!</div>
-        } else if (event.users && event.users[currentUser.id]) {
+        } else if (event.attendees && event.attendees.includes(currentUser)) {
             return <div>You are already a member of this event!</div>
         } else {
             return <div>
@@ -75,7 +75,7 @@ const InviteModal = (props) => {
                 <Modal.Title>Invite</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <ContentText inviteID={props.inviteID} currentUser={props.currentUser} events={props.events} users={props.users} />
+                <ContentText inviteID={props.inviteID} currentUser={props.currentUserID} events={props.events} users={props.users} />
                 <Outlet />
             </Modal.Body>
             <Modal.Footer>
