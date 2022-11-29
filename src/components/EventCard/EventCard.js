@@ -5,7 +5,7 @@ import EventModal from "../EventModal/EventModal";
 const EventCard = ({ event, eventId, users, currentUser }) => {
   const [show, setShow] = useState(false);
 
-  const attendeesIds = Object.values(event.attendees);
+  const attendeesIds = event.attendees ? Object.values(event.attendees) : [];
   const attendees = Object.entries(users).filter(([id, user]) =>
     attendeesIds.includes(id)
   );
@@ -43,7 +43,7 @@ const EventCard = ({ event, eventId, users, currentUser }) => {
         currentUser={currentUser}
         event={event}
         eventId={eventId}
-        users={users}        
+        users={users}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Badge, Button, Modal } from "react-bootstrap";
 import { useDbUpdate } from "../../utilities/firebase";
 import { Form, InputGroup } from "react-bootstrap";
@@ -28,29 +28,30 @@ export const useFormData = (values = {}) => {
 const InputDatetimeField = ({ name, state, change }) => {
   console.log('this is the deadline stored in state')
   console.log(state.values?.[name]);
-  return(
-  <div>
-    <label htmlFor={name} className="form-label">
-      Pick time
-    </label>
-    <input
-      type="datetime-local"
-      className="form-control mb-3"
-      id={name}
-      name={name}
-      defaultValue={''}
-      onChange={change}      
-    ></input>
-  </div>
-  // <DatePicker
-  //     selected={state.values.datetime}
-  //     onChange={(date) => {
-  //         change({ target: { id: name, value: date } })
-  //     }}
-  //     showTimeSelect
-  //     dateFormat="Pp"
-  // />
-);}
+  return (
+    <div>
+      <label htmlFor={name} className="form-label">
+        Pick time
+      </label>
+      <input
+        type="datetime-local"
+        className="form-control mb-3"
+        id={name}
+        name={name}
+        defaultValue={''}
+        onChange={change}
+      ></input>
+    </div>
+    // <DatePicker
+    //     selected={state.values.datetime}
+    //     onChange={(date) => {
+    //         change({ target: { id: name, value: date } })
+    //     }}
+    //     showTimeSelect
+    //     dateFormat="Pp"
+    // />
+  );
+}
 
 
 const EventModal = ({
@@ -65,7 +66,7 @@ const EventModal = ({
   const [updateData] = useDbUpdate("/");
   const [state, change] = useFormData({ deadline: event.deadline });
 
-  const attendeesIds = Object.values(event.attendees);
+  const attendeesIds = event.attendees ? Object.values(event.attendees) : [];
   const attendees = Object.entries(users).filter(([id, user]) =>
     attendeesIds.includes(id)
   );
@@ -96,21 +97,21 @@ const EventModal = ({
           <p className="modal-organizer">
             Organizer: {users[event.organizer].displayName}
           </p>
-          {event.organizer === currentUser.uid ? 
-                  <InputDatetimeField name='deadline' text='Deadline' state={state} change={(e) => {
-                    change(e);
-                    // console.log(state);
-                    updateData({ ["/events/" + eventId + "/deadline"]: state.values.deadline });
-                  }} />                                                                          
-                  : ""}
+          {event.organizer === currentUser.uid ?
+            <InputDatetimeField name='deadline' text='Deadline' state={state} change={(e) => {
+              change(e);
+              // console.log(state);
+              updateData({ ["/events/" + eventId + "/deadline"]: state.values.deadline });
+            }} />
+            : ""}
         </div>
         <div className="modal-attendees">
           <div className="d-flex justify-content-between">
             <p className="modal-title">Attendees <Badge bg="primary">{attendees.length}</Badge></p>
-            {event.organizer === currentUser.uid ? 
+            {event.organizer === currentUser.uid ?
               <Button variant="outline-dark" onClick={shareLink}>
                 <i className="bi bi-link-45deg" ></i>
-              </Button> 
+              </Button>
               : ""}
           </div>
           <div className="modal-badges-container">
@@ -123,7 +124,7 @@ const EventModal = ({
         </div>
         <div className="modal-payments-container">
           <p className="modal-title">Payments</p>
-          {event.payments.map((payment, i) => (
+          {event.payments ? event.payments.map((payment, i) => (
             <div key={i} className="modal-user-payment-container">
               <div>
                 {users[payment.user].displayName}
@@ -151,15 +152,15 @@ const EventModal = ({
                 ) : (
                   <div className="modal-payments-pending">
                     {payment.user !== currentUser.uid &&
-                    (<div>
-                      <Badge
-                        bg="warning"
-                        text="dark"
-                        className="modal-payment-badges-pending"
-                      >
-                        Payment is pending!
-                      </Badge>
-                    </div>)}
+                      (<div>
+                        <Badge
+                          bg="warning"
+                          text="dark"
+                          className="modal-payment-badges-pending"
+                        >
+                          Payment is pending!
+                        </Badge>
+                      </div>)}
                     {payment.user === currentUser.uid && (
                       <div>
                         <Button
@@ -176,7 +177,7 @@ const EventModal = ({
                 )}
               </div>
             </div>
-          ))}
+          )) : null}
         </div>
       </Modal.Body>
       <Modal.Footer>

@@ -5,7 +5,7 @@ import { useDbData } from "../utilities/firebase";
 import { useProfile } from "../utilities/userProfile";
 import EventCard from "../components/EventCard/EventCard";
 import Menubar from "../components/NavBar/Menubar";
-import { useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import InviteModal from "../components/InviteModal/InviteModal";
 import AddEventFormModal from "../components/AddEventFormModal/AddEventFormModal";
 
@@ -41,7 +41,7 @@ const Home = () => {
     <div>
       <Menubar user={currentUser} />
       {urlParams.get("invite") && (
-        <InviteModal 
+        <InviteModal
           show={true}
           handleClose={() => setUrlParams({})}
           inviteID={urlParams.get("invite")}
@@ -75,11 +75,12 @@ const Home = () => {
             );
           })}
         </ListGroup>
-        <AddEventFormModal 
+        <AddEventFormModal
           show={addEventShow}
           handleClose={handleAddEventClose}
           handleShow={handleAddEventShow}
           currentUser={currentUser}
+          currentUserEventIds={currentUserEventIds}
         />
       </Container>
     </div>
