@@ -12,12 +12,17 @@ const EventCard = ({ event, eventId, users, currentUser }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  // console.log(event.deadline ? event.deadline.split(' ')[0]: '');
+  // const dateHasPassed = new Date();
+  // console.log(event.payments);
   return (
     <div>
       <Card border="light">
         <Card.Header>
-          <Card.Title>{event.title}</Card.Title>
+          <Card.Title>
+          {(event.payments && event.payments.filter(o => !o.isPaid).length === 0) ? 'Finished - ' : ''}
+          {event.title}
+          </Card.Title>
         </Card.Header>
         <Card.Body>
           <Card.Subtitle className="mb-3 text-muted">
