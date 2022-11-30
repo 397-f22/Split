@@ -9,20 +9,21 @@
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
     "firebase": "^9.12.1",
+    "jsdom": "^20.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-router-dom": "^6.4.2",
-    "react-scripts": "5.0.1",
     "uuid": "^9.0.0",
+    "vitest": "^0.25.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "test": "vitest --ui",
     "cy:open": "cypress open --e2e",
     "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",
     "em:exec": "set REACT_APP_EMULATE=true&& firebase emulators:exec --import=./saved-data \"npm start\"",
@@ -48,7 +49,10 @@
     ]
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^2.2.0",
+    "@vitest/ui": "^0.25.3",
     "cypress": "^11.1.0",
-    "start-server-and-test": "^1.14.0"
+    "start-server-and-test": "^1.14.0",
+    "vite": "^3.2.4"
   }
 }
