@@ -9,23 +9,16 @@ export const useFormData = (values = {}) => {
   const change = (evt) => {
     const { id, value } = evt.target;
     if (id === "deadline") {
-      // parse the datetime value
-      var date = new Date(value);
-      date = new Intl.DateTimeFormat("en-US", {
-        dateStyle: "short",
-        timeStyle: "short",
-      }).format(date);
-      const newValues = { ...state.values, [id]: date.replace(",", " @") };
+      const newDate = new Date(value)
+      const newValues = { [id]: newDate.toJSON().split('.')[0] };  
       setState({ values: newValues });
-    } else {
-      const values = { ...state.values, [id]: value };
-      setState({ values });
-    }
+    } 
   };
   return [state, change];
 };
 
 const InputDatetimeField = ({ name, state, change }) => {
+  console.log(state.values)
   return (
     <div>
       <label htmlFor={name} className="form-label">
@@ -36,7 +29,7 @@ const InputDatetimeField = ({ name, state, change }) => {
         className="form-control mb-3"
         id={name}
         name={name}
-        defaultValue={""}
+        defaultValue={state.values.deadline}
         onChange={change}
       ></input>
     </div>
@@ -49,7 +42,8 @@ const AddEventFormModal = ({
   currentUser,
   currentUserEventIds,
 }) => {
-  const [deadline, setDeadline] = useFormData({ deadline: new Date() });
+  const date = (new Date()).toJSON().split('.')[0]
+  const [state, setState] = useFormData({ deadline: date });
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [updateData] = useDbUpdate("/");
@@ -59,13 +53,14 @@ const AddEventFormModal = ({
     if (description.length > 0) {
       const data = {
         attendees: { 0: currentUser.uid },
-        deadline: deadline,
+        deadline: state.values.deadline,
         description: description,
         organizer: currentUser.uid,
         payments: {},
         title: title,
       };
       const eventId = uuidv4();
+      console.log(data)
       updateData({ ["events/" + eventId]: data });
       updateData({
         ["users/" + currentUser.uid + "/events/"]: [
@@ -86,9 +81,9 @@ const AddEventFormModal = ({
           <InputDatetimeField
             name="deadline"
             text="Deadline"
-            state={deadline}
+            state={state}
             change={(e) => {
-              setDeadline(e);
+              setState(e);
             }}
           />
           <FloatingLabel controlId="floatingTextarea2" label="Event Title">
