@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Badge, Button, Modal } from "react-bootstrap";
 import { useDbUpdate } from "../../utilities/firebase";
 import { Form, InputGroup } from "react-bootstrap";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const useFormData = (values = {}) => {
   const [state, setState] = useState(() => ({ values }));
@@ -75,10 +76,21 @@ const EventModal = ({
     });
     updateData({ ["/events/" + eventId + "/payments"]: event.payments });
   };
-
+  // const notify = () => toast('Here is your toast.');
   const shareLink = () => {
     var eventLink = window.location.href + "?invite=" + eventId;
     navigator.clipboard.writeText(eventLink);
+    toast.success('Successfully copied!.', {
+      style: {
+        borderRadius: '10px',
+        background: '#333',
+        color: '#fff',
+      },
+      iconTheme: {
+        primary: '#fff',
+        secondary: '#333',
+      },
+    });
   };
 
   return (
@@ -113,6 +125,7 @@ const EventModal = ({
             <p className="modal-title">
               Attendees <Badge bg="primary">{attendees.length}</Badge>
             </p>
+            <Toaster />
             {event.organizer === currentUser.uid ? (
               <Button variant="outline-dark" onClick={shareLink}>
                 <i className="bi bi-link-45deg"></i>
