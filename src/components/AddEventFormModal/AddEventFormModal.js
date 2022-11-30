@@ -17,7 +17,7 @@ export const useFormData = (values = {}) => {
   return [state, change];
 };
 
-const InputDatetimeField = ({ name, state, change }) => {
+export const InputDatetimeField = ({ name, state, change }) => {
   console.log(state.values)
   return (
     <div>
