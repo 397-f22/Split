@@ -1,5 +1,5 @@
 .navbar-container {
-  background-color: rgb(78, 42, 132);
+  background-color: rgb(4, 100, 17);
 }
 
 .navbar-content {
@@ -8,7 +8,7 @@
 }
 
 .navbar-title {
-  color: white;
+  color: rgb(218, 246, 218);
   font-weight: bold;
   font-size: 35px;
 }
