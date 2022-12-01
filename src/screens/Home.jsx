@@ -30,12 +30,9 @@ const Home = () => {
   const currentUserInformation = Object.entries(users).filter(
     ([id, user]) => id === currentUser.uid
   )[0][1];
-
-  const currentUserEventIds = currentUserInformation.events ? Object.values(currentUserInformation.events) : [];
-
-  const currentUserEvents = Object.entries(events).filter(([id, event]) =>
-    currentUserEventIds.includes(id)
-  );
+  
+  const currentUserEventIds = Object.entries(events).map((e) => e[0] ).filter((id) => events[id].attendees.includes(currentUser.uid))
+  const currentUserEvents = currentUserEventIds.map((eid) => [eid, events[eid]])
 
   return (
     <div>
@@ -80,7 +77,7 @@ const Home = () => {
           handleClose={handleAddEventClose}
           handleShow={handleAddEventShow}
           currentUser={currentUser}
-          currentUserEventIds={currentUserEventIds}
+          currentUserEventIds = {currentUserEventIds}
         />
       </Container>
     </div>

@@ -60,14 +60,7 @@ const AddEventFormModal = ({
         title: title,
       };
       const eventId = uuidv4();
-      console.log(data)
       updateData({ ["events/" + eventId]: data });
-      updateData({
-        ["users/" + currentUser.uid + "/events/"]: [
-          ...currentUserEventIds,
-          eventId,
-        ],
-      });
     }
     handleClose();
   };

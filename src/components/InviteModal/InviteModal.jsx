@@ -36,7 +36,6 @@ const InviteModal = (props) => {
         update({ [`/events/${props.inviteID}`]: event, [`/users/${props.currentUserID}`]: user });
 
         // close the modal
-        console.log('update');
         navigate('/');
     }
 
