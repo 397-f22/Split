@@ -71,7 +71,9 @@ const EventModal = ({
               }}
             />
           ) : (
-            ""
+            <p className="modal-deadline">
+              Deadline: {new Date(event.deadline).toLocaleString()}
+            </p>
           )}
         </div>
         <div className="modal-attendees">
