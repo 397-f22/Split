@@ -33,9 +33,9 @@ const EventTimeline = ({ currentUserEvents, users, currentUser }) => {
         return (
           <TimelineItem className="mb-3 event-grid-container" key={id}>
             <TimelineOppositeContent color="textSecondary">
-              {new Date(eventData.deadline).toLocaleString("en-GB", {
+              {(new Date(eventData.deadline).toLocaleString("en-GB", {
                 timeZone: "UTC",
-              })}
+              }).split(',')[0])}
             </TimelineOppositeContent>
             <TimelineSeparator>
               <TimelineDot
