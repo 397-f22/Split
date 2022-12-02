@@ -24,6 +24,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest --ui",
+    "coverage": "vitest --coverage",
     "cy:open": "cypress open --e2e",
     "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",
     "em:exec": "set REACT_APP_EMULATE=true&& firebase emulators:exec --import=./saved-data \"npm start\"",
