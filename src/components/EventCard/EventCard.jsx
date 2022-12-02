@@ -20,7 +20,7 @@ const EventCard = ({ event, eventId, users, currentUser }) => {
       <Card border="light">
         <Card.Header>
           <Card.Title>
-          {(event.payments && event.payments.filter(o => !o.isPaid).length === 0) ? 'Finished - ' : ''}
+          {(event.payments && event.payments.filter(o => !o.isPaid).length === 0) ? 'All paid! - ' : ''}
           {event.title}
           </Card.Title>
         </Card.Header>
