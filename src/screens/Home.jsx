@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from 'react';
-import { Button, Container, ListGroup } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import EventTimeline from "../components/EventTimeline/EventTimeline";
 import { useDbData } from "../utilities/firebase";
 import { useProfile } from "../utilities/userProfile";
 import EventCard from "../components/EventCard/EventCard";
@@ -8,6 +9,7 @@ import Menubar from "../components/NavBar/Menubar";
 import { useSearchParams } from "react-router-dom";
 import InviteModal from "../components/InviteModal/InviteModal";
 import AddEventFormModal from "../components/AddEventFormModal/AddEventFormModal";
+
 
 
 const Home = () => {
@@ -32,7 +34,10 @@ const Home = () => {
   )[0][1];
   
   const currentUserEventIds = Object.entries(events).map((e) => e[0] ).filter((id) => events[id].attendees.includes(currentUser.uid))
-  const currentUserEvents = currentUserEventIds.map((eid) => [eid, events[eid]])
+  var currentUserEvents = currentUserEventIds.map((eid) => [eid, events[eid]])
+  currentUserEvents = currentUserEvents.sort(
+    (a, b) => new Date(a[1].deadline) - new Date(b[1].deadline)
+  ).reverse()
 
   return (
     <div>
@@ -58,20 +63,11 @@ const Home = () => {
             </Button>
           </div>
         </div>
-        <ListGroup>
-          {currentUserEvents.map(([id, eventData]) => {
-            return (
-              <ListGroup.Item className="mb-3 event-grid-container" key={id}>
-                <EventCard
-                  eventId={id}
-                  event={eventData}
-                  users={users}
-                  currentUser={currentUser}
-                />
-              </ListGroup.Item>
-            );
-          })}
-        </ListGroup>
+        <EventTimeline 
+          currentUserEvents = {currentUserEvents}
+          users = {users}
+          currentUser = {currentUser}
+          />
         <AddEventFormModal
           show={addEventShow}
           handleClose={handleAddEventClose}
