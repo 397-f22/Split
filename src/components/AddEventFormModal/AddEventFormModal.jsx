@@ -18,7 +18,7 @@ export const useFormData = (values = {}) => {
 };
 
 export const InputDatetimeField = ({ name, state, change }) => {
-  console.log(state.values)
+  // console.log(state.values)
   return (
     <div>
       <label htmlFor={name} className="form-label">
