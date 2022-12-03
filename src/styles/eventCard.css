@@ -6,6 +6,14 @@
   transition: all ease 200ms;
 }
 
+.card-header {
+  background: rgb(226, 241, 226);
+}
+
+.card-footer {
+  background: rgb(226, 241, 226);
+}
+
 .card:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border: none;

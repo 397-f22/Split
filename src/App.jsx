@@ -22,10 +22,10 @@ function App() {
             path="/"
             element={user ? <Home /> : <Navigate replace to="/login" state={{inviteLink: window.location.search}}/>}
           />
-          {/* <Route
+          <Route
             path=':handle'
             element={user ? <Home /> : <Navigate replace to="/login" state={{inviteLink: window.location.search}}/>}
-          /> */}
+          />
           <Route
             path="/login"
             element={ <Login />}
