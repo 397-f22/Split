@@ -104,7 +104,7 @@ describe('event details button works?', () => {
   // deadline is displayed => Shalini
   // attendees are displayed => Camilo
 
-  it('Given modal popped up, payments should display', async () => {
+  it('Given modal popped up, payments should display and user should be able to change them to desired amount', async () => {
     const mockUser = {
       uid: "testUser1",
       displayName: "Test User 1",
