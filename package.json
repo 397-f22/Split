@@ -27,7 +27,7 @@
     "start": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "vitest --ui",
+    "test": "vitest ",
     "coverage": "vitest --coverage",
     "cy:open": "cypress open --e2e",
     "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",

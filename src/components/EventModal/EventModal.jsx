@@ -102,65 +102,66 @@ const EventModal = ({
           <p className="modal-title">Payments</p>
           {event.payments
             ? event.payments.map((payment, i) => (
-                <div key={i} className="modal-user-payment-container">
-                  <div>
-                    {users[payment.user].displayName}
-                    <br />
-                    <strong>Amount: </strong>
-                    {event.organizer === currentUser.uid ? (
-                      <InputGroup className="mb-3">
-                        <InputGroup.Text id="basic-addon1"> $ </InputGroup.Text>
-                        <Form.Control
-                          placeholder={payment.amount}
-                          aria-label="Amount"
-                          onChange={(e) => {
-                            event.payments[i].amount = e.target.value;
-                            updateData({
-                              ["/events/" + eventId + "/payments"]:
-                                event.payments,
-                            });
-                          }}
-                        />
-                      </InputGroup>
-                    ) : (
-                      payment.amount
-                    )}
-                  </div>
-                  <div>
-                    {payment.isPaid ? (
-                      <Badge bg="success" className="modal-payment-badges">
-                        Already made payment!
-                      </Badge>
-                    ) : (
-                      <div className="modal-payments-pending">
-                        {payment.user !== currentUser.uid && (
-                          <div>
-                            <Badge
-                              bg="warning"
-                              text="dark"
-                              className="modal-payment-badges-pending"
-                            >
-                              Payment is pending!
-                            </Badge>
-                          </div>
-                        )}
-                        {payment.user === currentUser.uid && (
-                          <div>
-                            <Button
-                              variant="danger"
-                              size="sm"
-                              className="modal-payment-button"
-                              onClick={makePayment}
-                            >
-                              Pay now!
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
+              <div key={i} className="modal-user-payment-container">
+                <div>
+                  {users[payment.user].displayName}
+                  <br />
+                  <strong>Amount: </strong>
+                  {event.organizer === currentUser.uid ? (
+                    <InputGroup className="mb-3">
+                      <InputGroup.Text id="basic-addon1"> $ </InputGroup.Text>
+                      <Form.Control
+                        className={`payment-amount-${payment.user}`}
+                        placeholder={payment.amount}
+                        aria-label="Amount"
+                        onChange={(e) => {
+                          event.payments[i].amount = e.target.value;
+                          updateData({
+                            ["/events/" + eventId + "/payments"]:
+                              event.payments,
+                          });
+                        }}
+                      />
+                    </InputGroup>
+                  ) : (
+                    payment.amount
+                  )}
                 </div>
-              ))
+                <div>
+                  {payment.isPaid ? (
+                    <Badge bg="success" className="modal-payment-badges">
+                      Already made payment!
+                    </Badge>
+                  ) : (
+                    <div className="modal-payments-pending">
+                      {payment.user !== currentUser.uid && (
+                        <div>
+                          <Badge
+                            bg="warning"
+                            text="dark"
+                            className="modal-payment-badges-pending"
+                          >
+                            Payment is pending!
+                          </Badge>
+                        </div>
+                      )}
+                      {payment.user === currentUser.uid && (
+                        <div>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            className="modal-payment-button"
+                            onClick={makePayment}
+                          >
+                            Pay now!
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
             : null}
         </div>
       </Modal.Body>

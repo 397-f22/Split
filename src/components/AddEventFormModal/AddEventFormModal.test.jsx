@@ -61,28 +61,26 @@ const mockFirebase = (mockUser) => {
   useDbUpdate.mockImplementation((path) => {
     const updateData = (data) => {
       Object.entries(data).forEach(([path, data]) => {
-        // convert attendees to array
-        if (data['attendees']) {
-          data['attendees'] = Object.values(data['attendees']);
-        }
-        // convert payments to array
-        if (data['payments']) {
-          data['payments'] = Object.values(data['payments']);
-        }
-        const pathArr = path.split('/');
-        // replace the event id with 'testAddEvent' by checking if the path is '/events/'
-        for (let i = 0; i < pathArr.length; i++) {
-          if (pathArr[i] === 'events') {
-            pathArr[i + 1] = 'testAddEvent';
+        const eventsRegexMatches = path.match(/events\/([^\/]+)$/);
+        const paymentsRegexMatches = path.match(/events\/([^\/]+)\/payments$/);
+        if (eventsRegexMatches !== null) {
+          if (data['attendees']) {
+            data['attendees'] = Object.values(data['attendees']);
           }
-        }
-        let curr = mockData;
-        for (let i = 0; i < pathArr.length; i++) {
-          if (i === pathArr.length - 1) {
-            curr[pathArr[i]] = data;
+          if (data['payments']) {
+            data['payments'] = Object.values(data['payments']);
+          }
+          const eventId = eventsRegexMatches[1];
+          // if new event - use a deterministic uuid?
+          if (mockData.events[eventId] === undefined) {
+            mockData.events.testAddEvent = data;
           } else {
-            curr = curr[pathArr[i]];
+            mockData.events[eventId] = data;
           }
+        }
+        if (paymentsRegexMatches !== null) {
+          const eventId = paymentsRegexMatches[1];
+          mockData.events[eventId].payments = data;
         }
       });
     }

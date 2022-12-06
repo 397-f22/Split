@@ -1,7 +1,7 @@
-import {describe, it, vi} from 'vitest';
+import { describe, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from '../../App';
-import {useDbData, useAuthState, useDbUpdate} from '../../utilities/firebase';
+import { useDbData, useAuthState, useDbUpdate } from '../../utilities/firebase';
 
 const mockData = {
   events: {
@@ -19,6 +19,12 @@ const mockData = {
           "isPaid": true,
           "paid": false,
           "user": "testUser1",
+        },
+        {
+          "amount": 30,
+          "isPaid": true,
+          "paid": false,
+          "user": "testUser2",
         }
       ],
       "title": "Test Event",
@@ -61,28 +67,26 @@ const mockFirebase = (mockUser) => {
   useDbUpdate.mockImplementation((path) => {
     const updateData = (data) => {
       Object.entries(data).forEach(([path, data]) => {
-        // convert attendees to array
-        if (data['attendees']) {
-          data['attendees'] = Object.values(data['attendees']);
-        }
-        // convert payments to array
-        if (data['payments']) {
-          data['payments'] = Object.values(data['payments']);
-        }
-        const pathArr = path.split('/');
-        // replace the event id with 'testAddEvent' by checking if the path is '/events/'
-        for (let i = 0; i < pathArr.length; i++) {
-          if (pathArr[i] === 'events') {
-            pathArr[i + 1] = 'testAddEvent';
+        const eventsRegexMatches = path.match(/events\/([^\/]+)$/);
+        const paymentsRegexMatches = path.match(/events\/([^\/]+)\/payments$/);
+        if (eventsRegexMatches !== null) {
+          if (data['attendees']) {
+            data['attendees'] = Object.values(data['attendees']);
           }
-        }      
-        let curr = mockData;
-        for (let i = 0; i < pathArr.length; i++) {
-          if (i === pathArr.length - 1) {
-            curr[pathArr[i]] = data;
+          if (data['payments']) {
+            data['payments'] = Object.values(data['payments']);
+          }
+          const eventId = eventsRegexMatches[1];
+          // if new event - use a deterministic uuid?
+          if (mockData.events[eventId] === undefined) {
+            mockData.events.testAddEvent = data;
           } else {
-            curr = curr[pathArr[i]];
+            mockData.events[eventId] = data;
           }
+        }
+        if (paymentsRegexMatches !== null) {
+          const eventId = paymentsRegexMatches[1];
+          mockData.events[eventId].payments = data;
         }
       });
     }
@@ -99,6 +103,23 @@ describe('event details button works?', () => {
   // check if the modal is opened => Roger
   // deadline is displayed => Shalini
   // attendees are displayed => Camilo
+
+  it('Given modal popped up, payments should display', async () => {
+    const mockUser = {
+      uid: "testUser1",
+      displayName: "Test User 1",
+      email: "testuser1@gmail.com",
+    };
+    // mock firebase
+    mockFirebase(mockUser);
+    render(<App />);
+    // click on the event details button
+    fireEvent.click(screen.getByText(/Event Details/i));
+    const paymentInput = window.document.querySelector('.payment-amount-testUser2');
+    expect(paymentInput.getAttribute('placeholder').valueOf()).toBe('30')
+    fireEvent.change(paymentInput, { target: { value: "40" } });
+    expect(mockData.events.testEvent.payments[1].amount).toBe('40')
+  })
 
   // description is displayed => Ping
   it('Given modal poped up and attendee user, deadline should display', async () => {
