@@ -10,20 +10,6 @@ vi.mock('../../utilities/firebase')
  */
 // Given add event modal is open, when the user clicks the save button, the event is added to the database.
 describe('add event button works?', () => {
-  it('Given homepage when the user clicks on on the plus button, the add event modal opens', async () => {
-    const mockUser = {
-      uid: "testUser1",
-      displayName: "Test User 1",
-      email: "testuser1@gmail.com",
-    };
-    // mock firebase
-    mockFirebase(mockUser);
-    render(<App />);
-    // click on the add event button
-    const addEventButton = window.document.querySelector('.bi-plus-circle');
-    fireEvent.click(addEventButton);
-    expect(await screen.findByText(/Create A New Event/i));
-  });
   // check if the event is added to the database => Ping and Shalini
   it('Given add event modal is open, when the user clicks the save button, the event is added to the database', async () => {
     const mockUser = {

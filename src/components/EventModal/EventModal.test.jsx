@@ -14,24 +14,6 @@ describe('event details button works?', () => {
   // check if the modal is opened => Roger
   // deadline is displayed => Shalini
   // attendees are displayed => Camilo
-
-  it('Given modal popped up, payments should display and user should be able to change them to desired amount', async () => {
-    const mockUser = {
-      uid: "testUser1",
-      displayName: "Test User 1",
-      email: "testuser1@gmail.com",
-    };
-    // mock firebase
-    mockFirebase(mockUser);
-    render(<App />);
-    // click on the event details button
-    fireEvent.click(screen.getByText(/Event Details/i));
-    const paymentInput = window.document.querySelector('.payment-amount-testUser2');
-    expect(paymentInput.getAttribute('placeholder').valueOf()).toBe('30')
-    fireEvent.change(paymentInput, { target: { value: "40" } });
-    expect(mockData.events.testEvent.payments[1].amount).toBe('40')
-  })
-
   // description is displayed => Ping
   it('Given modal poped up and attendee user, deadline should display', async () => {
     const mockUser = {
