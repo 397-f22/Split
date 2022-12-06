@@ -1,7 +1,7 @@
-import {describe, it, vi} from 'vitest';
+import { describe, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from '../../App';
-import {useDbData, useAuthState, useDbUpdate} from '../../utilities/firebase';
+import { useDbData, useAuthState, useDbUpdate } from '../../utilities/firebase';
 
 const mockData = {
   events: {
@@ -75,7 +75,7 @@ const mockFirebase = (mockUser) => {
           if (pathArr[i] === 'events') {
             pathArr[i + 1] = 'testAddEvent';
           }
-        }      
+        }
         let curr = mockData;
         for (let i = 0; i < pathArr.length; i++) {
           if (i === pathArr.length - 1) {
@@ -95,6 +95,20 @@ const mockFirebase = (mockUser) => {
  */
 // Given add event modal is open, when the user clicks the save button, the event is added to the database.
 describe('add event button works?', () => {
+  it('Given homepage when the user clicks on on the plus button, the add event modal opens', async () => {
+    const mockUser = {
+      uid: "testUser1",
+      displayName: "Test User 1",
+      email: "testuser1@gmail.com",
+    };
+    // mock firebase
+    mockFirebase(mockUser);
+    render(<App />);
+    // click on the add event button
+    const addEventButton = window.document.querySelector('.bi-plus-circle');
+    fireEvent.click(addEventButton);
+    expect(await screen.findByText(/Create A New Event/i));
+  });
   // check if the event is added to the database => Ping and Shalini
   it('Given add event modal is open, when the user clicks the save button, the event is added to the database', async () => {
     const mockUser = {
@@ -113,9 +127,9 @@ describe('add event button works?', () => {
     const titleInput = screen.getByPlaceholderText(/Event Title/i);
     const descriptionInput = screen.getByPlaceholderText(/Description/i);
 
-    fireEvent.change(time, {target: {value: '2022-12-15T04:13:23'}});
-    fireEvent.change(titleInput, {target: {value: 'Test Add Event'}});
-    fireEvent.change(descriptionInput, {target: {value: 'This is a added test event'}});
+    fireEvent.change(time, { target: { value: '2022-12-15T04:13:23' } });
+    fireEvent.change(titleInput, { target: { value: 'Test Add Event' } });
+    fireEvent.change(descriptionInput, { target: { value: 'This is a added test event' } });
     // click on the save button
     const saveButton = screen.getByText(/Save Changes/i);
     fireEvent.click(saveButton);

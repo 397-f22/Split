@@ -16,7 +16,7 @@ const EventTimeline = ({ currentUserEvents, users, currentUser }) => {
     const isAllPaid = Object.entries(existingPayments).every(
       (val, key) => val[1].isPaid
     );
-    console.log("All paid? ", isAllPaid);
+    //console.log("All paid? ", isAllPaid);
     const deadlineOver = new Date() > new Date(deadline) === true;
     return deadlineOver ? (isAllPaid ? "success" : "error") : "primary";
   };
