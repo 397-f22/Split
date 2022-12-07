@@ -45,8 +45,13 @@ export const mockData = {
     },
 };
 export const mockFirebase = (mockUser) => {
-    // mock auth
-    useAuthState.mockReturnValue([mockUser, null]);
+    // mock auth for non-logged in user and logged in user
+    if (mockUser === undefined) {
+        useAuthState.mockReturnValue([null, null]);
+    }
+    else {
+        useAuthState.mockReturnValue([mockUser, null]);
+    }    
     // mock db
     useDbData.mockImplementation((path) => {
         if (path === '/events') {
