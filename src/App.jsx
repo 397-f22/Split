@@ -14,6 +14,7 @@ import "./styles/eventModal.css";
 
 function App() {
   const [user] = useProfile();
+  console.log('user is' +user);
   return (
     <div>
       <BrowserRouter>
