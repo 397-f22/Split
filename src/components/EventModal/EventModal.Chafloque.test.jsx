@@ -26,7 +26,6 @@ describe("Given homepage", () => {
     expect(await screen.findByText(/Payments/i));
   });
 
-  /*
   it("When the user clicks on an event and their payment button, then the payment is marked completed", async () => {
     const mockUser = {
       uid: "testUser2",
@@ -38,12 +37,11 @@ describe("Given homepage", () => {
     render(<App />);
     // click on the event details button
     fireEvent.click(screen.getByText(/Event Details/i));
-    const paymentInput = window.document.querySelector(
-      ".payment-amount-testUser2"
-    );
-    expect(paymentInput.getAttribute("placeholder").valueOf()).toBe("30");
-    fireEvent.change(paymentInput, { target: { value: "40" } });
-    expect(mockData.events.testEvent.payments[1].amount).toBe("40");
+    // click on the save button
+    const payButton = screen.getByText(/Pay now!/i);
+    fireEvent.click(payButton);
+
+    const isPaid = mockData.events.testEvent.payments[1].isPaid;
+    expect(isPaid).toBe(true);
   });
-  */
 });
