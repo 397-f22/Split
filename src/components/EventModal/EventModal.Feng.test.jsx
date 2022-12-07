@@ -1,7 +1,7 @@
 import { describe, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from '../../App';
-import { mockFirebase } from '../../helpers';
+import { mockData, mockFirebase } from '../../helpers';
 
 // mock firebase
 vi.mock('../../utilities/firebase')
@@ -21,6 +21,6 @@ describe('Given modal popped up', () => {
         // click on the event details button
         fireEvent.click(screen.getByText(/Event Details/i));
         fireEvent.click(screen.getByText(/Close/i));
-        expect(!(await screen.findByText(/Delete Event/i)))
+        expect(!(await screen.findByText(/Attendees/i)))
     });
 });
