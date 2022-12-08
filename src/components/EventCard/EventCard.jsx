@@ -32,11 +32,13 @@ const EventCard = ({ event, eventId, users, currentUser }) => {
             Organizer: {users[event.organizer].displayName}
           </Card.Subtitle>
           <Card.Text>{event.description}</Card.Text>
+          <div id = {`${event.title.replace(' ', '-').toLowerCase().trim()}-attendees`}>
           {attendees.map(([id, user]) => (
             <Badge key={id} bg="info" className="modal-badges">
               {user.displayName}
             </Badge>
           ))}
+          </div>
         </Card.Body>
         <Card.Footer>
           <Button variant="success" onClick={handleShow}>
