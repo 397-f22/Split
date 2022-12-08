@@ -39,17 +39,6 @@ describe('Add event form saves correct attendees and deadline?', () => {
     const event = mockData.events.testAddEvent;
     expect(event).not.toBeUndefined();
   })
-  it('Given new event has been saved, event is displayed on the page', async () => {
-    const mockUser = {
-      uid: "testUser1",
-      displayName: "Test User 1",
-      email: "testuser1@gmail.com",
-    };
-    mockFirebase(mockUser);
-    render(<App />);
-    // check if the event is displayed on the page
-    await screen.findByText(/Test Add Event/i);
-  })
   it('Given new event is displayed on page, new event displays correct organizer',  async () => {   
     const mockUser = {
       uid: "testUser1",
